@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MyFinance - Personal Finance Tracker</title>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="header-left">
+      <!-- Logo (gunakan path lokal yang tersedia di session) -->
+      <img src="/mnt/data/460e1419-6f95-4e3b-abcd-0bf22236c67f.png" alt="logo" class="logo" onerror="this.style.display='none'">
+      <div>
+        <h1>MyFinance</h1>
+        <p>Personal Budget &amp; Expense Tracker</p>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <button id="themeToggle">Mode Gelap</button>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- SUMMARY -->
+    <section class="summary">
+      <div class="card">
+        <h3>Total Pemasukan</h3>
+        <p id="totalIncome">Rp 0</p>
+      </div>
+      <div class="card">
+        <h3>Total Pengeluaran</h3>
+        <p id="totalExpense">Rp 0</p>
+      </div>
+      <div class="card">
+        <h3>Saldo</h3>
+        <p id="balance">Rp 0</p>
+      </div>
+    </section>
+
+    <!-- FORM + FILTER -->
+    <section class="layout-two">
+      <div class="form-section card">
+        <h2 id="formTitle">Tambah Transaksi</h2>
+        <form id="financeForm">
+          <input type="hidden" id="editId">
+
+          <label for="date">Tanggal:</label>
+          <input type="date" id="date" required>
+
+          <label>Jenis:</label>
+          <div class="radio-group">
+            <label><input type="radio" name="type" value="Pemasukan" required> Pemasukan</label>
+            <label><input type="radio" name="type" value="Pengeluaran"> Pengeluaran</label>
+          </div>
+
+          <label for="category">Kategori:</label>
+          <select id="category">
+            <option value="Makan">Makan</option>
+            <option value="Transport">Transport</option>
+            <option value="Hiburan">Hiburan</option>
+            <option value="Kuliah">Kuliah</option>
+            <option value="Lainnya">Lainnya</option>
+          </select>
+
+          <label for="amount">Jumlah (Rp):</label>
+          <input type="number" id="amount" required>
+
+          <label for="note">Catatan:</label>
+          <input type="text" id="note" required>
+
+          <div class="form-actions">
+            <button type="submit" id="submitBtn">Tambah</button>
+            <button type="button" id="resetBtn">Reset</button>
+          </div>
+        </form>
+
+        <hr>
+
+        <h3>Filter</h3>
+        <div class="filter-row">
+          <select id="filterType">
+            <option value="Semua">Semua</option>
+            <option value="Pemasukan">Pemasukan</option>
+            <option value="Pengeluaran">Pengeluaran</option>
+          </select>
+
+          <select id="filterCategory">
+            <option value="Semua">Semua</option>
+            <option value="Makan">Makan</option>
+            <option value="Transport">Transport</option>
+            <option value="Hiburan">Hiburan</option>
+            <option value="Kuliah">Kuliah</option>
+            <option value="Lainnya">Lainnya</option>
+          </select>
+
+          <button id="applyFilterBtn">Terapkan</button>
+          <button id="clearFilterBtn">Hapus Filter</button>
+        </div>
+      </div>
+
+      <!-- CHARTS -->
+      <div class="card charts">
+        <h2>Grafik</h2>
+        <div class="chart-wrap">
+          <canvas id="expenseCategoryChart" aria-label="Grafik Pengeluaran per Kategori"></canvas>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="incomeExpenseMonthChart" aria-label="Grafik Pemasukan vs Pengeluaran per Bulan"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- TABLE -->
+    <section class="table-section card">
+      <h2>Daftar Transaksi</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Tanggal</th>
+            <th>Jenis</th>
+            <th>Kategori</th>
+            <th>Jumlah</th>
+            <th>Catatan</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="transactionList"></tbody>
+      </table>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2025 - MyFinance App</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
